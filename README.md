@@ -16,7 +16,7 @@ The scoreboard displays:
 - Current player count
 - Server name
 - Player ID, Name, and Ping in a sortable table
-- 
+  
 ## Installation
 
 1. **Add to server.cfg**
