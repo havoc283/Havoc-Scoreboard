@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Scoreboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .scoreboard {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 500px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .server-info {
+            display: flex;
+            justify-content: space-between;
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .players-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .players-table th {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+            border-bottom: 2px solid #555;
+        }
+
+        .players-table td {
+            padding: 8px 10px;
+            color: #fff;
+            border-bottom: 1px solid #444;
+        }
+
+        .players-table tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ping-good { color: #4CAF50; }
+        .ping-medium { color: #FF9800; }
+        .ping-bad { color: #F44336; }
+
+        .footer {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="scoreboard" id="scoreboard">
+        <div class="header">
+            <h2>Server Scoreboard</h2>
+        </div>
+        
+        <div class="server-info">
+            <span>Players Online: <span id="playerCount">0</span></span>
+            <span>Server: YourServerName</span>
+        </div>
+        
+        <table class="players-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Player Name</th>
+                    <th>Ping</th>
+                </tr>
+            </thead>
+            <tbody id="playersBody">
+            </tbody>
+        </table>
+        
+        <div class="footer">
+            Press DOWN ARROW or ESC to close • Keybind customizable in FiveM Settings
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+            
+            if (data.type === 'toggleScoreboard') {
+                const scoreboard = document.getElementById('scoreboard');
+                
+                if (data.display) {
+                    scoreboard.style.display = 'block';
+                    if (data.players) {
+                        updatePlayerList(data.players);
+                    }
+                } else {
+                    scoreboard.style.display = 'none';
+                }
+            }
+            
+            if (data.type === 'updatePlayers') {
+                updatePlayerList(data.players);
+            }
+        });
+
+        function updatePlayerList(players) {
+            const playersBody = document.getElementById('playersBody');
+            const playerCount = document.getElementById('playerCount');
+            
+            playersBody.innerHTML = '';
+            playerCount.textContent = players.length;
+            
+            players.forEach(player => {
+                const row = document.createElement('tr');
+                
+                const pingClass = getPingClass(player.ping);
+                
+                row.innerHTML = `
+                    <td>${player.id}</td>
+                    <td>${escapeHtml(player.name)}</td>
+                    <td class="${pingClass}">${player.ping}ms</td>
+                `;
+                
+                playersBody.appendChild(row);
+            });
+        }
+
+        function getPingClass(ping) {
+            if (ping < 50) return 'ping-good';
+            if (ping < 100) return 'ping-medium';
+            return 'ping-bad';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
