@@ -10,7 +10,7 @@ A lightweight, framework-independent scoreboard script for FiveM servers that di
 
 ## Preview
 
-![Scoreboard Preview](https://i.imgur.com/4ogb4WI.png)
+![Scoreboard Preview]([https://user-images.githubusercontent.com/username/image-id/filename.png](https://github.com/havoc283/Havoc-Scoreboard/blob/main/img/QsVVSPW.png))
 
 The scoreboard displays:
 - Current player count
