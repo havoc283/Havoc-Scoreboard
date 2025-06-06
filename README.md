@@ -10,7 +10,7 @@ A lightweight, framework-independent scoreboard script for FiveM servers that di
 
 ## Preview
 
-![Scoreboard Preview](https://i.imgur.com/YourImageID.png)
+![Scoreboard Preview](https://i.imgur.com/4ogb4WI.png)
 
 The scoreboard displays:
 - Current player count
