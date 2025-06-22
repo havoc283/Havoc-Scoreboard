@@ -21,10 +21,10 @@ The scoreboard displays:
 
 1. **Add to server.cfg**
    ```
-   ensure scoreboard
+   ensure havoc-scoreboard
    ```
 
-2. **Restart your server** or use `refresh` and `start scoreboard`
+2. **Restart your server** or use `refresh` and `start havoc-scoreboard`
 
 ## Usage
 
@@ -85,7 +85,7 @@ RegisterKeyMapping('scoreboard', 'Toggle Scoreboard', 'keyboard', 'F1')
 
 ### Scoreboard won't open
 - Check console for errors (F8)
-- Ensure resource is started: `ensure simple-scoreboard`
+- Ensure resource is started: `ensure havoc-scoreboard`
 
 ### Keybind not working
 - Try using chat commands `/scoreboard` or `/sb`
@@ -121,6 +121,6 @@ This script is provided as-is for educational and community use. Feel free to mo
 
 ---
 
-**Version:** 1.0.0  
+**Version:** 1.2.1  
 **Author:** Havoc 
 **Last Updated:** 2025
